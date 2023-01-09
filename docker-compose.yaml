@@ -3,7 +3,7 @@ services:
   mongo:
     build: ./mongo
     image: docker_mongo
-    container_name: mongo
+    container_name: mongo-test
     env_file:
       - .env
     volumes:
@@ -19,7 +19,7 @@ services:
         ipv4_address: ${MONGO_IP}
   webui:
     image: docker_open5gs
-    container_name: webui
+    container_name: webui-test
     depends_on:
       - mongo
     env_file:
@@ -33,13 +33,13 @@ services:
     expose:
       - "3000/tcp"
     ports:
-      - "3000:3000/tcp"
+      - "3001:3000/tcp"
     networks:
       default:
         ipv4_address: ${WEBUI_IP}
   nrf:
     image: docker_open5gs
-    container_name: nrf
+    container_name: nrf-test
     env_file:
       - .env
     environment:
@@ -56,7 +56,7 @@ services:
         ipv4_address: ${NRF_IP}
   scp:
     image: docker_open5gs
-    container_name: scp
+    container_name: scp-test
     env_file:
       - .env
     environment:
@@ -76,7 +76,7 @@ services:
     depends_on:
       - nrf
       - scp
-    container_name: ausf
+    container_name: ausf-test
     env_file:
       - .env
     environment:
@@ -97,7 +97,7 @@ services:
       - nrf
       - scp
       - mongo
-    container_name: udr
+    container_name: udr-test
     env_file:
       - .env
     environment:
@@ -117,7 +117,7 @@ services:
     depends_on:
       - nrf
       - scp
-    container_name: udm
+    container_name: udm-test
     env_file:
       - .env
     environment:
@@ -138,7 +138,7 @@ services:
       - nrf
       - scp
       - mongo
-    container_name: pcf
+    container_name: pcf-test
     env_file:
       - .env
     environment:
@@ -160,7 +160,7 @@ services:
       - nrf
       - scp
       - mongo
-    container_name: bsf
+    container_name: bsf-test
     env_file:
       - .env
     environment:
@@ -181,7 +181,7 @@ services:
       - nrf
       - scp
       - mongo
-    container_name: nssf
+    container_name: nssf-test
     env_file:
       - .env
     environment:
@@ -198,7 +198,7 @@ services:
         ipv4_address: ${NSSF_IP}
   hss:
     image: docker_open5gs
-    container_name: hss
+    container_name: hss-test
     env_file:
       - .env
     environment:
@@ -225,7 +225,7 @@ services:
     depends_on:
       - smf
       - upf
-    container_name: sgwc
+    container_name: sgwc-test
     env_file:
       - .env
     environment:
@@ -246,7 +246,7 @@ services:
     depends_on:
       - smf
       - upf
-    container_name: sgwu
+    container_name: sgwu-test
     env_file:
       - .env
     environment:
@@ -269,7 +269,7 @@ services:
     depends_on:
       - nrf
       - scp
-    container_name: smf
+    container_name: smf-test
     env_file:
       - .env
     environment:
@@ -299,7 +299,7 @@ services:
       - nrf
       - scp
       - smf
-    container_name: upf
+    container_name: upf-test
     env_file:
       - .env
     environment:
@@ -336,7 +336,7 @@ services:
       - udr
       - pcf
       - bsf
-    container_name: amf
+    container_name: amf-test
     env_file:
       - .env
     environment:
@@ -364,7 +364,7 @@ services:
       - smf
       - upf
       - osmomsc
-    container_name: mme
+    container_name: mme-test
     env_file:
       - .env
     environment:
@@ -391,7 +391,7 @@ services:
         ipv4_address: ${MME_IP}
   pcrf:
     image: docker_open5gs
-    container_name: pcrf
+    container_name: pcrf-test
     env_file:
       - .env
     environment:
@@ -416,7 +416,7 @@ services:
   dns:
     build: ./dns
     image: docker_dns
-    container_name: dns
+    container_name: dns-test
     env_file:
       - .env
     volumes:
@@ -431,7 +431,7 @@ services:
   rtpengine:
     build: ./rtpengine
     image: docker_rtpengine
-    container_name: rtpengine
+    container_name: rtpengine-test
     privileged: true
     env_file:
       - .env
@@ -461,7 +461,7 @@ services:
   mysql:
     build: ./mysql
     image: docker_mysql
-    container_name: mysql
+    container_name: mysql-test
     env_file:
       - .env
     volumes:
@@ -476,7 +476,7 @@ services:
   fhoss:
     build: ./fhoss
     image: docker_fhoss
-    container_name: fhoss
+    container_name: fhoss-test
     dns: ${DNS_IP}
     volumes:
       - ./fhoss:/mnt/fhoss
@@ -491,13 +491,13 @@ services:
       - "3868/udp"
       - "3868/tcp"
     ports:
-      - "8080:8080/tcp"
+      - "8081:8080/tcp"
     networks:
       default:
         ipv4_address: ${FHOSS_IP}
   icscf:
     image: docker_kamailio
-    container_name: icscf
+    container_name: icscf-test
     dns: ${DNS_IP}
     volumes:
       - ./icscf:/mnt/icscf
@@ -521,7 +521,7 @@ services:
         ipv4_address: ${ICSCF_IP}
   scscf:
     image: docker_kamailio
-    container_name: scscf
+    container_name: scscf-test
     dns: ${DNS_IP}
     volumes:
       - ./scscf:/mnt/scscf
@@ -545,7 +545,7 @@ services:
         ipv4_address: ${SCSCF_IP}
   pcscf:
     image: docker_kamailio
-    container_name: pcscf
+    container_name: pcscf-test
     dns: ${DNS_IP}
     privileged: true
     cap_add:
@@ -587,7 +587,7 @@ services:
         ipv4_address: ${PCSCF_IP}
   smsc:
     image: docker_kamailio
-    container_name: smsc
+    container_name: smsc-test
     dns: ${DNS_IP}
     volumes:
       - ./smsc:/mnt/smsc
@@ -609,7 +609,7 @@ services:
   osmomsc:
     build: ./osmomsc
     image: docker_osmomsc
-    container_name: osmomsc
+    container_name: osmomsc-test
     volumes:
       - ./osmomsc:/mnt/osmomsc
       - /etc/timezone:/etc/timezone:ro
@@ -629,7 +629,7 @@ services:
   osmohlr:
     build: ./osmohlr
     image: docker_osmohlr
-    container_name: osmohlr
+    container_name: osmohlr-test
     volumes:
       - ./osmohlr:/mnt/osmohlr
       - /etc/timezone:/etc/timezone:ro
@@ -646,7 +646,7 @@ services:
   metrics:
     build: ./metrics
     image: docker_metrics
-    container_name: metrics
+    container_name: metrics-test
     env_file:
       - .env
     volumes:
@@ -656,7 +656,7 @@ services:
     expose:
       - "9090/tcp"
     ports:
-      - "9090:9090/tcp"
+      - "9091:9090/tcp"
     networks:
       default:
         ipv4_address: ${METRICS_IP}
