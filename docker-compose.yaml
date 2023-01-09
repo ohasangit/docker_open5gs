@@ -2,7 +2,7 @@ version: '3'
 services:
   mongo:
     build: ./mongo
-    image: docker_mongo
+    image: docker_mongo_test
     container_name: mongo-test
     env_file:
       - .env
@@ -415,7 +415,7 @@ services:
         ipv4_address: ${PCRF_IP}
   dns:
     build: ./dns
-    image: docker_dns
+    image: docker_dns_test
     container_name: dns-test
     env_file:
       - .env
@@ -430,7 +430,7 @@ services:
         ipv4_address: ${DNS_IP}
   rtpengine:
     build: ./rtpengine
-    image: docker_rtpengine
+    image: docker_rtpengine_test
     container_name: rtpengine-test
     privileged: true
     env_file:
@@ -460,7 +460,7 @@ services:
         ipv4_address: ${RTPENGINE_IP}
   mysql:
     build: ./mysql
-    image: docker_mysql
+    image: docker_mysql_test
     container_name: mysql-test
     env_file:
       - .env
@@ -475,7 +475,7 @@ services:
         ipv4_address: ${MYSQL_IP}
   fhoss:
     build: ./fhoss
-    image: docker_fhoss
+    image: docker_fhoss_test
     container_name: fhoss-test
     dns: ${DNS_IP}
     volumes:
@@ -628,7 +628,7 @@ services:
         ipv4_address: ${OSMOMSC_IP}
   osmohlr:
     build: ./osmohlr
-    image: docker_osmohlr
+    image: docker_osmohlr_test
     container_name: osmohlr-test
     volumes:
       - ./osmohlr:/mnt/osmohlr
@@ -645,7 +645,7 @@ services:
         ipv4_address: ${OSMOHLR_IP}
   metrics:
     build: ./metrics
-    image: docker_metrics
+    image: docker_metrics_test
     container_name: metrics-test
     env_file:
       - .env
